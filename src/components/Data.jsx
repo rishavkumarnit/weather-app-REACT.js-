@@ -29,7 +29,7 @@ const Data = () => {
       setWeather("invalid");
       console.log(
         "Error fetching weather data:",
-        error.message.substring(0, 0)
+        error.message
       );
     }
     lastEpoch = Date.now();

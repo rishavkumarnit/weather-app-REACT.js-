@@ -1,6 +1,9 @@
 export default async function handler(req, res) {
   const { city } = req.query;
-  const apiKey = import.meta.env.VITE_OWM_API_KEY;
+  console.log("hello");
+//   const apiKey = import.meta.env.VITE_OWM_API_KEY;
+// eslint-disable-next-line no-undef
+  const apiKey = process.env.OWM_API_KEY;
 
   if (!city) {
     return res.status(400).json({ error: "City name is required" });
@@ -19,7 +22,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json(data);
   } catch (err) {
-    console.log(err.message.substring(0,0));
+    console.log(err);
     return res.status(500).json({ error: "Server error" });
   }
 }
