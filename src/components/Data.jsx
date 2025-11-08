@@ -19,6 +19,9 @@ const Data = () => {
     }
     try {
       const response = await fetch(`/api/weather?city=${city}`);
+      if (response.status != 200) {
+        throw new Error("Out of service");
+      }
       const data = await response.json();
       setHumidity(data.main.humidity);
       setTemperature(data.main.temp);
@@ -27,10 +30,7 @@ const Data = () => {
       setHumidity("invalid");
       setTemperature("invalid");
       setWeather("invalid");
-      console.log(
-        "Error fetching weather data:",
-        error.message
-      );
+      console.log("Error fetching weather data:", error.message);
     }
     lastEpoch = Date.now();
   };
