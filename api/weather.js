@@ -1,7 +1,6 @@
 export default async function handler(req, res) {
   const { city } = req.query;
-  console.log("hello");
-//   const apiKey = import.meta.env.VITE_OWM_API_KEY;
+
 // eslint-disable-next-line no-undef
   const apiKey = process.env.OWM_API_KEY;
 
@@ -22,7 +21,7 @@ export default async function handler(req, res) {
 
     return res.status(200).json(data);
   } catch (err) {
-    console.log(err);
+    console.log(err.message.substring(0,0));
     return res.status(500).json({ error: "Server error" });
   }
 }
