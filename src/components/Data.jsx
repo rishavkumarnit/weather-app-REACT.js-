@@ -13,18 +13,12 @@ const Data = () => {
       alert("slow up buddy!!");
       return;
     }
-    const apiKey = import.meta.env.VITE_OWM_API_KEY;
     if (!city) {
       alert("add city name");
       return;
     }
     try {
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
-      );
-      if (!response.ok) {
-        throw new Error("Invalid city");
-      }
+      const response = await fetch(`/api/weather?city=${city}`);
       const data = await response.json();
       setHumidity(data.main.humidity);
       setTemperature(data.main.temp);
@@ -33,7 +27,10 @@ const Data = () => {
       setHumidity("invalid");
       setTemperature("invalid");
       setWeather("invalid");
-      console.log("Error fetching weather data:", error.message);
+      console.log(
+        "Error fetching weather data:",
+        error.message.substring(0, 0)
+      );
     }
     lastEpoch = Date.now();
   };
@@ -66,7 +63,7 @@ const Data = () => {
               <input
                 type="text"
                 onChange={(e) => setCity(e.target.value)}
-                className="h-8 w-28 rounded-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-200"
+                className="h-8 w-28 rounded-sm px-2 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-blue-200"
               />
             </div>
             <div>
